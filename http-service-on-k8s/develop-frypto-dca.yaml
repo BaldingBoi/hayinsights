@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: develop-frypto-dca
+  namespace: develop
+  labels:
+    app: develop-frypto-dca
+spec:
+  selector:
+    matchLabels:
+      app: develop-frypto-dca
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: develop-frypto-dca
+    spec:
+      containers:
+      - name: develop-frypto-dca
+        image: dockerhub.finhay.lan/develop-frypto-dca:0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        # envFrom:
+        # - secretRef:
+        #     name: develop-frypto-dca
+#         env:
+#            - name: ENV_PRODUCT_RUN_ON
+#              value: "develop"
+        resources:
+         # requests ⇒ set minimum required resources when creating pods
+          requests:
+           # 250m ⇒ 0.25 CPU
+           cpu: 250m
+           memory: 512Mi
+         # set maximum resorces
+#          limits:
+#           cpu: 1000m
+#           memory: 2048Mi
+        volumeMounts:
+          - name: tz-config
+            mountPath: /etc/localtime
+      volumes:
+        - name: tz-config
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Ho_Chi_Minh
+      nodeSelector:
+        k8spool: finhay-all-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: develop-frypto-dca
+  namespace: develop
+spec:
+  selector:
+    app: develop-frypto-dca
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name:  develop-frypto-dca
+  namespace: develop
+spec:
+  rules:
+  - host: "xxx.frypto.io"
+    http:
+      paths:
+        - path:
+          backend:
+            serviceName: develop-frypto-dca
+            servicePort: 3000

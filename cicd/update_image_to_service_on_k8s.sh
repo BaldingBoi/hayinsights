@@ -1,0 +1,15 @@
+#!/bin/bash
+
+WORKSPACE=$1
+IMAGE_NAME=$2
+IMAGE_VERSION=$3
+REPO_URL=$4
+
+
+DEPLOYMENTNAME="${IMAGE_NAME}"
+
+echo "START UPDATE IMAGES $IMAGE_VERSION ON $WORKSPAICE - $DEPLOYMENTNAME"
+kubectl set image deployment/${DEPLOYMENTNAME} ${DEPLOYMENTNAME}=${REPO_URL}/${IMAGE_NAME}:${IMAGE_VERSION} --record -n $WORKSPACE
+# STRCOMAND=""
+echo "STRCOMAND: " $STRCOMAND
+# ansible masters -a "$STRCOMAND" -i /var/lib/jenkins/hostsk8scluster
