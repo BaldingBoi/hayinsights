@@ -57,3 +57,28 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 8px;
+	/* display: none; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	/* display: none; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: lightgray;
+	border-radius: 10px;
+	opacity: 0.2;
+	/* display: none; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: lightgray;
+}

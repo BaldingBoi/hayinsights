@@ -19,8 +19,20 @@ ChartJS.register(
 	ChartTooltip,
 	Legend
 );
-import CPIQuarterly from "@/data/cpi-quarterly.json";
-import CPIAnnual from "@/data/cpi-annual.json";
+// import CPIJPY from "@/data/cpi-JPY.json";
+// import CPIUSD from "@/data/cpi-USD.json";
+
+import GDPJPY from "@/data/gdp-jpy.json";
+import RateDataQuarterly from "@/data/rate-quarterly.json";
+
+const USDDATA = RateDataQuarterly["Rate"].splice(-12);
+
+const GDPUSDData = GDPJPY["GDP"].splice(-12).map((item, index) => {
+	return item / USDDATA[index];
+});
+
+//@ts-ignore
+import merge from "lodash.merge";
 
 import {
 	Tooltip,
@@ -35,52 +47,13 @@ import tailwindConfig from "@/tailwind.config.js";
 
 const styleConfig = resolveConfig(tailwindConfig);
 
-const chartOptions = {
-	responsive: true,
-	plugins: {
-		legend: {
-			display: true,
-			position: "bottom",
-			reverse: true,
-		},
-		title: {
-			display: false,
-		},
-	},
-	scales: {
-		x: {
-			grid: {
-				display: false,
-			},
-			ticks: {
-				autoSkip: true,
-				maxTicksLimit: 6,
-			},
-		},
-		y: {
-			display: true,
-			grid: {
-				display: false,
-			},
-			min: 96,
-		},
-		y1: {
-			display: true,
-			position: "right",
-			grid: {
-				display: false,
-			},
-		},
-	},
-};
-
-const CPI = () => {
+const GDP = () => {
 	return (
-		<Tabs defaultValue="quarterly" className="flex flex-col gap-2">
+		<Tabs defaultValue="JPY" className="flex flex-col gap-2">
 			<div className="w-full flex items-center justify-between">
 				<div className="font-semibold text-2xl border-l-4 border-primary pl-2">
 					<div className="flex items-center gap-2">
-						<div>Consumer Price Index (CPI)</div>
+						<div>Gross Domestic Product (GDP)</div>
 						<TooltipProvider>
 							<Tooltip delayDuration={0}>
 								<TooltipTrigger>
@@ -88,10 +61,8 @@ const CPI = () => {
 								</TooltipTrigger>
 								<TooltipContent>
 									<div className="text-slate-600 w-[250px]">
-										The index which aims to measure the
-										average price change in the purchases of
-										goods and services by households
-										nationwide
+										Gross Domestic Product (Expenditure
+										approach) (Nominal) (2015 base)
 									</div>
 								</TooltipContent>
 							</Tooltip>
@@ -107,23 +78,60 @@ const CPI = () => {
 						<div>Analyze with AI</div>
 					</Button>
 					<TabsList>
-						<TabsTrigger value="quarterly">Quarterly</TabsTrigger>
-						<TabsTrigger value="annual">Annual</TabsTrigger>
+						<TabsTrigger value="JPY">JPY</TabsTrigger>
+						<TabsTrigger value="USD">USD</TabsTrigger>
 					</TabsList>
 				</div>
 			</div>
-			<TabsContent value="quarterly">
+			<TabsContent value="JPY">
 				<div className="w-full p-4">
 					<Chart
 						type="bar"
 						//@ts-ignore
-						options={chartOptions}
+						options={{
+							responsive: true,
+							plugins: {
+								legend: {
+									display: true,
+									position: "bottom",
+									reverse: true,
+								},
+								title: {
+									display: false,
+								},
+							},
+							scales: {
+								x: {
+									grid: {
+										display: false,
+									},
+									ticks: {
+										autoSkip: true,
+										maxTicksLimit: 6,
+									},
+								},
+								y: {
+									display: true,
+									grid: {
+										display: false,
+									},
+									min: 500000,
+								},
+								y1: {
+									display: true,
+									position: "right",
+									grid: {
+										display: false,
+									},
+								},
+							},
+						}}
 						data={{
-							labels: CPIQuarterly["Time"].slice(-12),
+							labels: GDPJPY["Time"].slice(-12),
 							datasets: [
 								{
-									label: "Changes from the same time period of previous year (%)",
-									data: CPIQuarterly["Change"].slice(-12),
+									label: "Changes from previous quarter (%)",
+									data: GDPJPY["Change"].slice(-12),
 									type: "line",
 									fill: false,
 									borderColor: "#16A34A",
@@ -135,8 +143,8 @@ const CPI = () => {
 									borderWidth: 2,
 								},
 								{
-									label: "Consumer Price Index",
-									data: CPIQuarterly["CPI"].slice(-12),
+									label: "Gross Domestic Product (Billion JPY)",
+									data: GDPJPY["GDP"].slice(-12),
 									borderWidth: 0,
 									backgroundColor:
 										//@ts-ignore
@@ -148,21 +156,57 @@ const CPI = () => {
 							],
 						}}
 					/>
-					;
 				</div>
 			</TabsContent>
-			<TabsContent value="annual">
+			<TabsContent value="USD">
 				<div className="w-full p-4">
 					<Chart
 						type="bar"
 						//@ts-ignore
-						options={chartOptions}
+						options={{
+							responsive: true,
+							plugins: {
+								legend: {
+									display: true,
+									position: "bottom",
+									reverse: true,
+								},
+								title: {
+									display: false,
+								},
+							},
+							scales: {
+								x: {
+									grid: {
+										display: false,
+									},
+									ticks: {
+										autoSkip: true,
+										maxTicksLimit: 6,
+									},
+								},
+								y: {
+									display: true,
+									grid: {
+										display: false,
+									},
+									min: 3500,
+								},
+								y1: {
+									display: true,
+									position: "right",
+									grid: {
+										display: false,
+									},
+								},
+							},
+						}}
 						data={{
-							labels: CPIAnnual["Time"].slice(-6),
+							labels: GDPJPY["Time"].slice(-12),
 							datasets: [
 								{
-									label: "Changes from the same time period of previous year (%)",
-									data: CPIAnnual["Change"].slice(-6),
+									label: "Changes from previous quarter (%)",
+									data: GDPJPY["Change"].slice(-12),
 									type: "line",
 									fill: false,
 									borderColor: "#16A34A",
@@ -174,8 +218,8 @@ const CPI = () => {
 									borderWidth: 2,
 								},
 								{
-									label: "Consumer Price Index",
-									data: CPIAnnual["CPI"].slice(-6),
+									label: "Gross Domestic Product (Billion USD)",
+									data: GDPUSDData,
 									borderWidth: 0,
 									backgroundColor:
 										//@ts-ignore
@@ -187,11 +231,10 @@ const CPI = () => {
 							],
 						}}
 					/>
-					;
 				</div>
 			</TabsContent>
 		</Tabs>
 	);
 };
 
-export default CPI;
+export default GDP;
