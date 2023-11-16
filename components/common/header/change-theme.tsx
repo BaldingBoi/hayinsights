@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 import React from "react";
 import { Moon, Sun, SunMoon } from "lucide-react";
 import { useTheme } from "next-themes";

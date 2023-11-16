@@ -1,6 +1,8 @@
 import "./globals.css";
 import { ThemeProvider } from "@/provider/ThemeProvider";
 import { Provider as QueryProvider } from "@/provider/QueryProvider";
+import Header from "@/components/common/header";
+import LayoutTemplate from "@/components/common/layout-template";
 
 export const metadata = {
     title: "DEMO",
@@ -27,8 +29,9 @@ export default function RootLayout({
                     defaultTheme="light"
                     enableSystem={false}
                 >
-                    {/* <QueryProvider>{children}</QueryProvider> */}
-                    {children}
+                    <QueryProvider>
+                        <LayoutTemplate>{children}</LayoutTemplate>
+                    </QueryProvider>
                 </ThemeProvider>
             </body>
         </html>

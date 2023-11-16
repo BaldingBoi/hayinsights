@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 import Image from "next/image";
 import Logo from "@/public/logo-lite.svg";
 import ChangeTheme from "./change-theme";
@@ -19,10 +19,10 @@ const Header = () => {
                     className="flex items-center gap-1 text-primary"
                 >
                     <CandlestickChart />
-                    <div>Stocks</div>
+                    <div>Stock Market</div>
                 </Link>
                 <Link
-                    href="/stocks"
+                    href="/macro-data"
                     className="flex items-center gap-1 text-primary"
                 >
                     <BarChart4 />

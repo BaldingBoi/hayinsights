@@ -104,7 +104,7 @@ const ExchangeRate = () => {
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-                    <TooltipProvider>
+                    {/* <TooltipProvider>
                         <Tooltip delayDuration={0}>
                             <TooltipTrigger>
                                 <FileDown size={20} />
@@ -123,7 +123,7 @@ const ExchangeRate = () => {
                                 <div>Capture chart</div>
                             </TooltipContent>
                         </Tooltip>
-                    </TooltipProvider>
+                    </TooltipProvider> */}
                     <TabsList>
                         <TabsTrigger value="quarterly">Quarterly</TabsTrigger>
                         <TabsTrigger value="annual">Annual</TabsTrigger>
@@ -131,7 +131,7 @@ const ExchangeRate = () => {
                 </div>
             </div>
 
-            <TabsContent value="quarterly">
+            <TabsContent value="quarterly" id="chart">
                 <div className="w-full p-4">
                     <Line
                         data={{
