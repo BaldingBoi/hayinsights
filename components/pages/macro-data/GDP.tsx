@@ -159,7 +159,7 @@ const GDP = () => {
 			<TabsContent value="JPY">
 				<div className="w-full p-4">
 					<Chart
-						type="bar"
+						type="line"
 						//@ts-ignore
 						options={{
 							responsive: true,
@@ -234,7 +234,7 @@ const GDP = () => {
 			<TabsContent value="USD">
 				<div className="w-full p-4">
 					<Chart
-						type="bar"
+						type="line"
 						//@ts-ignore
 						options={{
 							responsive: true,

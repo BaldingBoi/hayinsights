@@ -26,7 +26,7 @@ const MacroData = () => {
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 w-full ">
 				<ExchangeRate />
 				<GDP />
-				{/* <CPI /> */}
+				<CPI />
 				<PEIP />
 			</div>
 		</div>
