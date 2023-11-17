@@ -1,4 +1,3 @@
-"use client";
 import React, { Suspense } from "react";
 import ExchangeRate from "./ExchangeRate";
 import CPI from "./CPI";
@@ -25,19 +24,10 @@ const MacroData = () => {
 				</div>
 			</div>
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 w-full ">
-				<Suspense fallback={<div>...</div>}>
-					<ExchangeRate />
-				</Suspense>
-				<Suspense fallback={<div>...</div>}>
-					<GDP />
-				</Suspense>
-
-				<Suspense fallback={<div>...</div>}>
-					<CPI />
-				</Suspense>
-				<Suspense fallback={<div>...</div>}>
-					<PEIP />
-				</Suspense>
+				<ExchangeRate />
+				{/* <GDP />
+				<CPI />
+				<PEIP /> */}
 			</div>
 		</div>
 	);
