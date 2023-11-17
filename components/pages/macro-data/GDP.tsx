@@ -159,7 +159,7 @@ const GDP = () => {
 			<TabsContent value="JPY">
 				<div className="w-full p-4">
 					<Chart
-						type="line"
+						type="bar"
 						//@ts-ignore
 						options={{
 							responsive: true,
@@ -223,7 +223,6 @@ const GDP = () => {
 										//@ts-ignore
 										styleConfig.theme?.colors?.slate[300],
 									borderColor: "transparent",
-									type: "bar",
 									yAxisID: "y",
 								},
 							],
@@ -234,7 +233,7 @@ const GDP = () => {
 			<TabsContent value="USD">
 				<div className="w-full p-4">
 					<Chart
-						type="line"
+						type="bar"
 						//@ts-ignore
 						options={{
 							responsive: true,
@@ -298,7 +297,6 @@ const GDP = () => {
 										//@ts-ignore
 										styleConfig.theme?.colors?.slate[300],
 									borderColor: "transparent",
-									type: "bar",
 									yAxisID: "y",
 								},
 							],

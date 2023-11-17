@@ -182,7 +182,7 @@ const CPI = () => {
 			<TabsContent value="quarterly">
 				<div className="w-full p-4">
 					<Chart
-						type="line"
+						type="bar"
 						//@ts-ignore
 						options={chartOptions}
 						data={{
@@ -209,7 +209,6 @@ const CPI = () => {
 										//@ts-ignore
 										styleConfig.theme?.colors?.slate[300],
 									borderColor: "transparent",
-									type: "bar",
 									yAxisID: "y",
 								},
 							],
@@ -220,7 +219,7 @@ const CPI = () => {
 			<TabsContent value="annual">
 				<div className="w-full p-4">
 					<Chart
-						type="line"
+						type="bar"
 						//@ts-ignore
 						options={chartOptions}
 						data={{
@@ -247,7 +246,6 @@ const CPI = () => {
 										//@ts-ignore
 										styleConfig.theme?.colors?.slate[300],
 									borderColor: "transparent",
-									type: "bar",
 									yAxisID: "y",
 								},
 							],
