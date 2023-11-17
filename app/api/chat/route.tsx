@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
 				},
+				timeout: 30000,
 			}
 		);
 		return NextResponse.json(openAIResponse.data.choices[0].message);
