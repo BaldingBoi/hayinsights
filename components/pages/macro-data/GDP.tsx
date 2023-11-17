@@ -16,7 +16,7 @@ import {
 	Tooltip as ChartTooltip,
 	Legend,
 } from "chart.js";
-import { Chart } from "react-chartjs-2";
+import { Bar, Chart } from "react-chartjs-2";
 ChartJS.register(
 	CategoryScale,
 	LinearScale,
@@ -158,7 +158,7 @@ const GDP = () => {
 			</div>
 			<TabsContent value="JPY">
 				<div className="w-full p-4">
-					<Chart
+					<Bar
 						type="bar"
 						//@ts-ignore
 						options={{
@@ -205,6 +205,7 @@ const GDP = () => {
 								{
 									label: "Changes from previous quarter (%)",
 									data: GDPJPY["Change"].slice(-12),
+									//@ts-ignore
 									type: "line",
 									fill: false,
 									borderColor: "#16A34A",
@@ -232,7 +233,7 @@ const GDP = () => {
 			</TabsContent>
 			<TabsContent value="USD">
 				<div className="w-full p-4">
-					<Chart
+					<Bar
 						type="bar"
 						//@ts-ignore
 						options={{
@@ -279,6 +280,7 @@ const GDP = () => {
 								{
 									label: "Changes from previous quarter (%)",
 									data: GDPJPY["Change"].slice(-12),
+									//@ts-ignore
 									type: "line",
 									fill: false,
 									borderColor: "#16A34A",

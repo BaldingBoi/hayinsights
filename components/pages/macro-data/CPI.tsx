@@ -16,7 +16,7 @@ import {
 	Tooltip as ChartTooltip,
 	Legend,
 } from "chart.js";
-import { Chart } from "react-chartjs-2";
+import { Chart, Bar } from "react-chartjs-2";
 ChartJS.register(
 	CategoryScale,
 	LinearScale,
@@ -181,8 +181,7 @@ const CPI = () => {
 			</div>
 			<TabsContent value="quarterly">
 				<div className="w-full p-4">
-					<Chart
-						type="bar"
+					<Bar
 						//@ts-ignore
 						options={chartOptions}
 						data={{
@@ -191,6 +190,7 @@ const CPI = () => {
 								{
 									label: "Changes from the same time period of previous year (%)",
 									data: CPIQuarterly["Change"].slice(-12),
+									//@ts-ignore
 									type: "line",
 									fill: false,
 									borderColor: "#16A34A",
@@ -218,7 +218,7 @@ const CPI = () => {
 			</TabsContent>
 			<TabsContent value="annual">
 				<div className="w-full p-4">
-					<Chart
+					<Bar
 						type="bar"
 						//@ts-ignore
 						options={chartOptions}
@@ -228,6 +228,7 @@ const CPI = () => {
 								{
 									label: "Changes from the same time period of previous year (%)",
 									data: CPIAnnual["Change"].slice(-6),
+									//@ts-ignore
 									type: "line",
 									fill: false,
 									borderColor: "#16A34A",
