@@ -4,7 +4,7 @@ import ChatPage from "@/components/pages/chat";
 
 const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
     return (
-        <main className="flex h-[100dvh] w-[100svw] flex-col items-center gap-2 overflow-x-hidden pb-20">
+        <main className="flex h-[100dvh] w-[100svw] flex-col items-center gap-0 overflow-x-hidden">
             <Header />
             {children}
             <ChatPage />
