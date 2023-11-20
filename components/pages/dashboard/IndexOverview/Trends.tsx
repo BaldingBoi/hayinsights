@@ -1,7 +1,7 @@
 import React from "react";
 
-const Trends = () => {
-    return <div>Trends</div>;
+const Trends = ({ stockData }: any) => {
+    return <div>{JSON.stringify(stockData)}</div>;
 };
 
 export default Trends;
