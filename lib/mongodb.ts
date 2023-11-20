@@ -2,7 +2,10 @@ import { MongoClient, MongoClientOptions } from "mongodb";
 
 const uri = process.env.MONGODB_URI + "";
 
-let client = new MongoClient(uri);
-let clientPromise = client.connect();
+const getDB = async () => {
+    let client = new MongoClient(uri);
+    await client.connect();
+    return client.db(process.env.MONGODB_NAME + "");
+};
 
-export default clientPromise;
+export default getDB;

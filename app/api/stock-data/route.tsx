@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import clientPromise from "@/lib/mongodb";
-
-import axios from "axios";
+import getDB from "@/lib/mongodb";
 
 export async function GET() {
-    const client = await clientPromise;
-    const db = client.db("jps");
+    const db = await getDB();
     const stockData = await db
         .collection("overview_stock_data")
         .find({})
