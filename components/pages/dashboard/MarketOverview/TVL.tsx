@@ -25,9 +25,9 @@ import { Bar } from "react-chartjs-2";
 
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "@/tailwind.config.js";
-import { ChatStore, useChatStore } from "@/store/chatStore";
-import { set } from "react-hook-form";
 const styleConfig = resolveConfig(tailwindConfig);
+
+import { ChatStore, useChatStore } from "@/store/chatStore";
 
 ChartJS.register(
     CategoryScale,
