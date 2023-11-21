@@ -23,7 +23,7 @@ const Overview = ({ stockData }: any) => {
         }
     }, []);
     return (
-        <Card className="h-full overflow-hidden p-4">
+        <Card className="h-full overflow-hidden p-4 pt-0">
             {data.length > 0 && (
                 <Chart
                     type="treemap"
@@ -35,6 +35,9 @@ const Overview = ({ stockData }: any) => {
                             type: "treemap",
                             animations: {
                                 speed: 200,
+                            },
+                            toolbar: {
+                                show: false,
                             },
                         },
                         title: {},
