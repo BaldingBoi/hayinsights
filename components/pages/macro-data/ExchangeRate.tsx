@@ -21,6 +21,8 @@ import {
     Title,
     Tooltip as ChartTooltip,
     Legend,
+    ScriptableContext,
+    Filler,
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
@@ -40,7 +42,8 @@ ChartJS.register(
     LineElement,
     Title,
     ChartTooltip,
-    Legend
+    Legend,
+    Filler
 );
 
 const chartOptions = {
@@ -197,8 +200,29 @@ const ExchangeRate = () => {
                                 {
                                     label: "JPY/USD",
                                     data: datas.quarterly,
-                                    fill: false,
+                                    fill: true,
                                     borderColor: "#16A34A", //primary
+                                    backgroundColor: (
+                                        context: ScriptableContext<"line">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                350
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(22,163,74,1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(22,163,74,0)"
+                                        );
+                                        return gradient;
+                                    },
                                     borderWidth: 2,
                                     tension: 0.4,
                                     pointBorderWidth: 0,
@@ -219,8 +243,29 @@ const ExchangeRate = () => {
                                 {
                                     label: "JPY/USD",
                                     data: datas.annual,
-                                    fill: false,
+                                    fill: true,
                                     borderColor: "#16A34A", //primary
+                                    backgroundColor: (
+                                        context: ScriptableContext<"line">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                350
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(22,163,74,1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(22,163,74,0)"
+                                        );
+                                        return gradient;
+                                    },
                                     borderWidth: 2,
                                     tension: 0.4,
                                     pointBorderWidth: 0,

@@ -23,7 +23,7 @@ const Overview = ({ stockData }: any) => {
         }
     }, []);
     return (
-        <Card className="h-full overflow-hidden p-4 pr-1">
+        <Card className="h-full overflow-hidden p-4">
             {data.length > 0 && (
                 <Chart
                     type="treemap"
@@ -33,12 +33,15 @@ const Overview = ({ stockData }: any) => {
                         },
                         chart: {
                             type: "treemap",
+                            animations: {
+                                speed: 200,
+                            },
                         },
                         title: {},
                         dataLabels: {
                             enabled: true,
                             style: {
-                                fontSize: "8px",
+                                fontSize: "10px",
                             },
                             //@ts-ignore
                             formatter: function (text: string, op: any) {
@@ -46,6 +49,10 @@ const Overview = ({ stockData }: any) => {
                             },
                             offsetY: -6,
                         },
+                        tooltip: {
+                            theme: "dark",
+                        },
+
                         plotOptions: {
                             treemap: {
                                 enableShades: true,
@@ -60,7 +67,7 @@ const Overview = ({ stockData }: any) => {
                                             color:
                                                 // @ts-ignore
                                                 styleConfig.theme.colors
-                                                    .red[500],
+                                                    .red[400],
                                         },
                                         {
                                             from: 0.001,
@@ -68,7 +75,7 @@ const Overview = ({ stockData }: any) => {
                                             color:
                                                 //@ts-ignore
                                                 styleConfig.theme.colors
-                                                    .green[500],
+                                                    .green[400],
                                         },
                                     ],
                                 },

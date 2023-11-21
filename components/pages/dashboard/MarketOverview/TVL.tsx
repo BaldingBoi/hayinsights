@@ -211,6 +211,7 @@ const TVL = () => {
                                     borderWidth: 0,
                                     borderColor: "transparent",
                                     yAxisID: "y",
+                                    backgroundColor: "lightgray",
                                 },
                             ],
                         }}
@@ -243,6 +244,7 @@ const TVL = () => {
                                     borderWidth: 0,
                                     borderColor: "transparent",
                                     yAxisID: "y",
+                                    backgroundColor: "lightgray",
                                 },
                             ],
                         }}

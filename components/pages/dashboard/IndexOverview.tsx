@@ -1,6 +1,6 @@
 "use server";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Overview from "./IndexOverview/Overview";
 import Trends from "./IndexOverview/Trends";
@@ -23,10 +23,14 @@ const Nikkei = async () => {
                     <TabsTrigger value="trends">Trends</TabsTrigger>
                 </TabsList>
                 <TabsContent value="overview" className="flex-1 w-full">
-                    <Overview stockData={stockData} />
+                    <Suspense fallback={<></>}>
+                        <Overview stockData={stockData} />
+                    </Suspense>
                 </TabsContent>
-                <TabsContent value="trends" className="flex-1">
-                    <Trends stockData={stockData} />
+                <TabsContent value="trends" className="flex-1 w-full">
+                    <Suspense fallback={<></>}>
+                        <Trends stockData={stockData} />
+                    </Suspense>
                 </TabsContent>
             </Tabs>
         </div>

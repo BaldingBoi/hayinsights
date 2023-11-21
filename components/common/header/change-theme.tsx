@@ -15,7 +15,7 @@ const ChangeTheme = () => {
             case "dark":
                 return <Moon size={20} />;
             default:
-                return <Sun size={20} />;
+                return <Moon size={20} />;
         }
     };
 
