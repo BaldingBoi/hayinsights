@@ -200,7 +200,7 @@ const ExchangeRate = () => {
                                 {
                                     label: "JPY/USD",
                                     data: datas.quarterly,
-                                    fill: true,
+                                    fill: false,
                                     borderColor: "#16A34A", //primary
                                     backgroundColor: (
                                         context: ScriptableContext<"line">
@@ -243,7 +243,7 @@ const ExchangeRate = () => {
                                 {
                                     label: "JPY/USD",
                                     data: datas.annual,
-                                    fill: true,
+                                    fill: false,
                                     borderColor: "#16A34A", //primary
                                     backgroundColor: (
                                         context: ScriptableContext<"line">

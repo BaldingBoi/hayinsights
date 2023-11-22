@@ -21,6 +21,8 @@ import {
     Tooltip as ChartTooltip,
     Legend,
     ScriptableContext,
+    PointElement,
+    LineElement,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -34,6 +36,8 @@ ChartJS.register(
     CategoryScale,
     LinearScale,
     BarElement,
+    PointElement,
+    LineElement,
     Title,
     ChartTooltip,
     Legend
@@ -255,8 +259,12 @@ const TVL = () => {
                                     //@ts-ignore
                                     type: "line",
                                     fill: false,
-                                    borderColor: "#16A34A",
-                                    backgroundColor: "#16A34A",
+                                    borderColor:
+                                        //@ts-ignore
+                                        styleConfig.theme?.colors?.amber[500],
+                                    backgroundColor:
+                                        //@ts-ignore
+                                        styleConfig.theme?.colors?.amber[500],
                                     tension: 0.4,
                                     pointBorderWidth: 0,
                                     pointBackgroundColor: "transparent",
@@ -266,10 +274,30 @@ const TVL = () => {
                                 {
                                     label: "Trading Volume (Million Shares)",
                                     data: dailyVolume,
-                                    borderWidth: 0,
-                                    borderColor: "transparent",
                                     yAxisID: "y",
-                                    backgroundColor: "lightgray",
+                                    borderWidth: 1,
+                                    borderColor: "rgba(100, 116, 139, 0.2)",
+                                    backgroundColor: (
+                                        context: ScriptableContext<"bar">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                400
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(100, 116, 139, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(100, 116, 139, 0)"
+                                        );
+                                        return gradient;
+                                    },
                                 },
                             ],
                         }}

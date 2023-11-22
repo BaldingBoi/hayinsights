@@ -4,7 +4,7 @@ import Logo from "@/public/logo-lite.svg";
 import ChangeTheme from "./change-theme";
 import { Search } from "./search";
 import Link from "next/link";
-import { BarChart4, CandlestickChart } from "lucide-react";
+import { BarChart4, CandlestickChart, List } from "lucide-react";
 
 const Header = () => {
     return (
@@ -30,6 +30,13 @@ const Header = () => {
                 >
                     <CandlestickChart />
                     <div>Stock Market</div>
+                </Link>
+                <Link
+                    href="/app/indexs"
+                    className="flex items-center gap-1 text-primary"
+                >
+                    <List />
+                    <div>Indexs</div>
                 </Link>
 
                 {/* <Search /> */}

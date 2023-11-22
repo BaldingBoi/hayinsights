@@ -24,6 +24,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "@/tailwind.config.js";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 const styleConfig = resolveConfig(tailwindConfig);
 
 ChartJS.register(
@@ -230,7 +231,7 @@ const Trends = ({ stockData }: any) => {
                     />
                 )}
             </Card>
-            <Card className="w-full p-4 flex flex-col gap-4 h-[350px]">
+            <Card className="w-full p-4 flex flex-col gap-4 h-[300px]">
                 <div className="w-full flex items-center justify-between text-xl font-semibold">
                     <div className="flex items-center gap-2">
                         <TrendingUp size={32} className="text-green-500" />
@@ -326,15 +327,6 @@ const Trends = ({ stockData }: any) => {
                             </div>
                         ))}
                     </div>
-                </div>
-                <div className="w-full flex justify-center">
-                    <Button
-                        className="rounded-full bg-transparent text-primary border-2 border-primary flex items-center gap-1"
-                        variant={"link"}
-                    >
-                        <div>See all</div>
-                        <ArrowRight size={16} />
-                    </Button>
                 </div>
             </Card>
         </div>
