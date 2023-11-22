@@ -19,6 +19,7 @@ import {
     Title,
     Tooltip as ChartTooltip,
     Legend,
+    ScriptableContext,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -139,20 +140,56 @@ const PEPB = () => {
                                 {
                                     label: "Average PE Ratio",
                                     data: data.datasets["average-pe"],
-                                    borderWidth: 0,
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.emerald[300],
-                                    borderColor: "transparent",
+                                    borderWidth: 1,
+                                    backgroundColor: (
+                                        context: ScriptableContext<"bar">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                400
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(255, 163, 81, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(255, 163, 81, 0)"
+                                        );
+                                        return gradient;
+                                    },
+                                    borderColor: "rgba(255, 163, 81, 0.1)",
                                 },
                                 {
                                     label: "Weighted Average PE Ratio",
                                     data: data.datasets["weighted-average-pe"],
-                                    borderWidth: 0,
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.emerald[500],
-                                    borderColor: "transparent",
+                                    borderWidth: 1,
+                                    backgroundColor: (
+                                        context: ScriptableContext<"bar">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                400
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(255, 190, 123, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(255, 190, 123, 0)"
+                                        );
+                                        return gradient;
+                                    },
+                                    borderColor: "rgba(255, 190, 123, 0.1)",
                                 },
                             ],
                         }}
@@ -168,20 +205,56 @@ const PEPB = () => {
                                 {
                                     label: "Average PB Ratio",
                                     data: data.datasets["average-pb"],
-                                    borderWidth: 0,
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.indigo[300],
-                                    borderColor: "transparent",
+                                    borderWidth: 1,
+                                    backgroundColor: (
+                                        context: ScriptableContext<"bar">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                400
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(255, 163, 81, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(255, 163, 81, 0)"
+                                        );
+                                        return gradient;
+                                    },
+                                    borderColor: "rgba(255, 163, 81, 0.1)",
                                 },
                                 {
                                     label: "Weighted Average PB Ratio",
                                     data: data.datasets["weighted-average-pb"],
-                                    borderWidth: 0,
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.indigo[500],
-                                    borderColor: "transparent",
+                                    borderWidth: 1,
+                                    backgroundColor: (
+                                        context: ScriptableContext<"bar">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                400
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(255, 190, 123, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(255, 190, 123, 0)"
+                                        );
+                                        return gradient;
+                                    },
+                                    borderColor: "rgba(255, 190, 123, 0.1)",
                                 },
                             ],
                         }}

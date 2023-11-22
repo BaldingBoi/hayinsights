@@ -59,7 +59,7 @@ const Overview = ({ stockData }: any) => {
                         plotOptions: {
                             treemap: {
                                 enableShades: true,
-                                shadeIntensity: 0.5,
+                                shadeIntensity: 0.4,
                                 reverseNegativeShade: true,
                                 useFillColorAsStroke: true,
                                 colorScale: {

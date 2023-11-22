@@ -18,7 +18,7 @@ import {
 import { Line, Bar } from "react-chartjs-2";
 import { formatDate } from "@/lib/date";
 import { formatNumber } from "@/lib/number";
-import { Loader2, TrendingDown, TrendingUp } from "lucide-react";
+import { ArrowRight, Loader2, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "@/tailwind.config.js";
@@ -125,7 +125,7 @@ const Trends = ({ stockData }: any) => {
     }, [days]);
 
     return (
-        <div className="w-full h-full flex flex-col gap-4 overflow-auto">
+        <div className="w-full h-full flex flex-col gap-4">
             <Card className="w-full p-4 flex flex-col gap-1 justify-between max-h-1/2 h-fit">
                 {chartData && (
                     <Tabs
@@ -202,7 +202,7 @@ const Trends = ({ stockData }: any) => {
                                                 0,
                                                 0,
                                                 0,
-                                                300
+                                                350
                                             );
                                         gradient.addColorStop(
                                             0,
@@ -326,6 +326,15 @@ const Trends = ({ stockData }: any) => {
                             </div>
                         ))}
                     </div>
+                </div>
+                <div className="w-full flex justify-center">
+                    <Button
+                        className="rounded-full bg-transparent text-primary border-2 border-primary flex items-center gap-1"
+                        variant={"link"}
+                    >
+                        <div>See all</div>
+                        <ArrowRight size={16} />
+                    </Button>
                 </div>
             </Card>
         </div>

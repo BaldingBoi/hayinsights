@@ -17,6 +17,7 @@ import {
     Tooltip as ChartTooltip,
     Legend,
     Filler,
+    ScriptableContext,
 } from "chart.js";
 import { Card } from "@/components/ui/card";
 import { AreaChart, ArrowRight, Bot, ChevronRight } from "lucide-react";
@@ -163,7 +164,6 @@ const MacroOverview = () => {
                         <AreaChart className="text-primary font-light" />
                         <div>Exchange Rate (JPY/USD)</div>
                     </div>
-
                     <Line
                         data={{
                             labels: labels,
@@ -172,12 +172,28 @@ const MacroOverview = () => {
                                     label: "JPY/USD",
                                     fill: true,
                                     data: datas.rate,
-                                    borderColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.yellow[400],
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.yellow[100],
+                                    borderColor: "rgba(34, 197, 94, 1)",
+                                    backgroundColor: (
+                                        context: ScriptableContext<"line">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                175
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(34, 197, 94, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(34, 197, 94, 0)"
+                                        );
+                                        return gradient;
+                                    },
                                     borderWidth: 2,
                                     tension: 0.4,
                                     pointBorderWidth: 0,
@@ -203,12 +219,28 @@ const MacroOverview = () => {
                                     label: "GDP",
                                     data: datas.gdp,
                                     fill: true,
-                                    borderColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.lime[400],
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.lime[100],
+                                    borderColor: "rgba(34, 197, 94, 1)",
+                                    backgroundColor: (
+                                        context: ScriptableContext<"line">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                175
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(34, 197, 94, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(34, 197, 94, 0)"
+                                        );
+                                        return gradient;
+                                    },
                                     borderWidth: 2,
                                     tension: 0.4,
                                     pointBorderWidth: 0,
@@ -234,12 +266,28 @@ const MacroOverview = () => {
                                     label: "CPI",
                                     data: datas.cpi,
                                     fill: true,
-                                    borderColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.cyan[400],
-                                    backgroundColor:
-                                        //@ts-ignore
-                                        styleConfig.theme?.colors?.cyan[100],
+                                    borderColor: "rgba(34, 197, 94, 1)",
+                                    backgroundColor: (
+                                        context: ScriptableContext<"line">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                175
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            "rgba(34, 197, 94, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            "rgba(34, 197, 94, 0)"
+                                        );
+                                        return gradient;
+                                    },
                                     borderWidth: 2,
                                     tension: 0.4,
                                     pointBorderWidth: 0,
