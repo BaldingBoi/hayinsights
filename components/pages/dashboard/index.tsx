@@ -5,7 +5,7 @@ import IndexOverview from "./IndexOverview";
 
 const Dashboard = () => {
     return (
-        <div className="w-full flex-1 h-[calc(100dvh-48px)] grid grid-cols-5 gap-4">
+        <div className="w-full flex-1 h-[calc(100dvh-48px)] grid grid-cols-5 px-4">
             <MacroOverview />
             <MarketOverview />
 

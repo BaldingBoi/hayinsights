@@ -18,10 +18,12 @@ import {
 import { Line, Bar } from "react-chartjs-2";
 import { formatDate } from "@/lib/date";
 import { formatNumber } from "@/lib/number";
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { Loader2, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "@/tailwind.config.js";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 const styleConfig = resolveConfig(tailwindConfig);
 
 ChartJS.register(
@@ -63,36 +65,6 @@ const historicalChartOptions = {
     },
 };
 
-const horizontalBarChartOptions = {
-    responsive: true,
-    plugins: {
-        legend: {
-            display: false,
-        },
-        title: {
-            display: false,
-        },
-    },
-    indexAxis: "y",
-    scales: {
-        x: {
-            grid: {
-                display: false,
-            },
-            display: false,
-        },
-        y: {
-            grid: {
-                display: false,
-            },
-            display: false,
-            min: -10,
-            max: 10,
-            stepSize: 1,
-        },
-    },
-};
-
 const Trends = ({ stockData }: any) => {
     const [days, setDays] = useState("30");
     const [labels, setLabels] = useState<any>();
@@ -100,7 +72,7 @@ const Trends = ({ stockData }: any) => {
     const [topGain, setTopGain] = useState<any>();
     const [topLoss, setTopLoss] = useState<any>();
 
-    const { data, refetch } = useQuery({
+    const { data, refetch, isFetching } = useQuery({
         queryKey: ["nikkei225Historical"],
         queryFn: async () => {
             const res = await fetch(`/api/nikkei225?days=${days}`);
@@ -125,12 +97,12 @@ const Trends = ({ stockData }: any) => {
                 );
             setTopGain(
                 newData
-                    .splice(0, 10)
+                    .splice(0, 20)
                     .filter((item: any) => item.changeInPercent > 0)
             );
             setTopLoss(
                 newData
-                    .splice(-10)
+                    .splice(-20)
                     .reverse()
                     .filter((item: any) => item.changeInPercent < 0)
             );
@@ -153,8 +125,8 @@ const Trends = ({ stockData }: any) => {
     }, [days]);
 
     return (
-        <div className="w-full h-full flex flex-col gap-4">
-            <Card className="w-full overflow-hidden p-4 flex flex-col gap-1">
+        <div className="w-full h-full flex flex-col gap-4 overflow-auto">
+            <Card className="w-full p-4 flex flex-col gap-1 justify-between max-h-1/2 h-fit">
                 {chartData && (
                     <Tabs
                         value={days}
@@ -195,6 +167,9 @@ const Trends = ({ stockData }: any) => {
                                     2
                                 )}%)`}</div>
                             </div>
+                            {isFetching && (
+                                <Loader2 size={24} className="animate-spin" />
+                            )}
                         </div>
                         <TabsList>
                             <TabsTrigger value="30">30D</TabsTrigger>
@@ -205,72 +180,73 @@ const Trends = ({ stockData }: any) => {
                     </Tabs>
                 )}
 
-                <Line
-                    data={{
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: "NIKKEI 225 Index Historical Data",
-                                data: chartData,
-                                fill: true,
-                                borderColor:
-                                    chartData.at(-1) > chartData.at(-2)
-                                        ? "rgba(34, 197, 94, 1)"
-                                        : "rgba(239, 68, 68, 1)",
-                                backgroundColor: (
-                                    context: ScriptableContext<"line">
-                                ) => {
-                                    const ctx = context.chart.ctx;
-                                    const gradient = ctx.createLinearGradient(
-                                        0,
-                                        0,
-                                        0,
-                                        300
-                                    );
-                                    gradient.addColorStop(
-                                        0,
+                {chartData && (
+                    <Line
+                        data={{
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "NIKKEI 225 Index Historical Data",
+                                    data: chartData,
+                                    fill: true,
+                                    borderColor:
                                         chartData.at(-1) > chartData.at(-2)
                                             ? "rgba(34, 197, 94, 1)"
-                                            : "rgba(239, 68, 68, 1)"
-                                    );
-                                    gradient.addColorStop(
-                                        1,
-                                        chartData.at(-1) > chartData.at(-2)
-                                            ? "rgba(34, 197, 94, 0)"
-                                            : "rgba(239, 68, 68, 0)"
-                                    );
-                                    return gradient;
+                                            : "rgba(239, 68, 68, 1)",
+                                    backgroundColor: (
+                                        context: ScriptableContext<"line">
+                                    ) => {
+                                        const ctx = context.chart.ctx;
+                                        const gradient =
+                                            ctx.createLinearGradient(
+                                                0,
+                                                0,
+                                                0,
+                                                300
+                                            );
+                                        gradient.addColorStop(
+                                            0,
+                                            chartData.at(-1) > chartData.at(-2)
+                                                ? "rgba(34, 197, 94, 1)"
+                                                : "rgba(239, 68, 68, 1)"
+                                        );
+                                        gradient.addColorStop(
+                                            1,
+                                            chartData.at(-1) > chartData.at(-2)
+                                                ? "rgba(34, 197, 94, 0)"
+                                                : "rgba(239, 68, 68, 0)"
+                                        );
+                                        return gradient;
+                                    },
+                                    borderWidth: 2,
+                                    tension: 0.4,
+                                    pointBorderWidth: 0,
+                                    pointBackgroundColor: "transparent",
                                 },
-                                borderWidth: 2,
-                                tension: 0.4,
-                                pointBorderWidth: 0,
-                                pointBackgroundColor: "transparent",
-                            },
-                        ],
-                    }}
-                    //@ts-ignore
-                    options={historicalChartOptions}
-                />
+                            ],
+                        }}
+                        //@ts-ignore
+                        options={historicalChartOptions}
+                    />
+                )}
             </Card>
-            <Card className="w-full overflow-hidden p-4 flex flex-col gap-1">
+            <Card className="w-full p-4 flex flex-col gap-4 h-[350px]">
                 <div className="w-full flex items-center justify-between text-xl font-semibold">
                     <div className="flex items-center gap-2">
                         <TrendingUp size={32} className="text-green-500" />
-
                         <div>Top Gain</div>
                     </div>
                     <div className="flex items-center gap-2">
                         <div>Top Loss</div>
-
                         <TrendingDown size={32} className="text-red-500" />
                     </div>
                 </div>
                 <div className="w-full flex justify-between gap-2 text-lightgray flex-1 overflow-auto no-scrollbar">
-                    <div className="flex-1 flex flex-col gap-1 ">
+                    <div className="w-1/2 flex flex-col gap-1 ">
                         {topGain?.map((stock: any, index: number) => (
                             <div
                                 key={index}
-                                className="flex items-center justify-between text-xs p-1"
+                                className="flex items-center justify-between text-xs p-1 h-10"
                                 style={{
                                     background: `linear-gradient(-90deg, rgba(34, 197, 94, 1) 0%,  rgba(255,255,255,0) ${Math.ceil(
                                         (Math.abs(stock["changeInPercent"]) /
@@ -280,16 +256,30 @@ const Trends = ({ stockData }: any) => {
                                 }}
                             >
                                 <div className="flex items-center gap-2 ">
-                                    <div className="bg-green-500 rounded-2xl py-0 px-2 w-12 max-w-[30%] text-center">
-                                        {stock["ID"]}
-                                    </div>
-                                    <div className="w-40 line-clamp-1">
-                                        {stock["Name"]}
+                                    {stock["Logo"] === "-" ? (
+                                        <div className="w-10 h-10 bg-slate-300"></div>
+                                    ) : (
+                                        <Image
+                                            src={stock["Logo"]}
+                                            height={40}
+                                            width={40}
+                                            alt={stock["ID"]}
+                                        />
+                                    )}
+                                    <div className="flex flex-col gap-0">
+                                        <div>{stock["ID"]}</div>
+                                        <div className="w-32 line-clamp-1">
+                                            {stock["Name"]}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <div>{stock["Price"].split(" ")[0]}</div>
-                                    <div>({stock["Change %"]})</div>
+                                <div className="flex items-end flex-col">
+                                    <div className="font-semibold">
+                                        ({stock["Change %"]})
+                                    </div>
+                                    <div>
+                                        {stock["Price"].split(" ")[0] + "¥"}
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -298,7 +288,7 @@ const Trends = ({ stockData }: any) => {
                         {topLoss?.map((stock: any, index: number) => (
                             <div
                                 key={index}
-                                className="flex items-center justify-between text-xs flex-row-reverse p-1"
+                                className="flex items-center justify-between text-xs flex-row-reverse p-1 h-10"
                                 style={{
                                     background: `linear-gradient(90deg, rgba(239, 68, 68, 1) 0%,  rgba(255,255,255,0) ${Math.ceil(
                                         (Math.abs(stock["changeInPercent"]) /
@@ -308,16 +298,30 @@ const Trends = ({ stockData }: any) => {
                                 }}
                             >
                                 <div className="flex items-center gap-2 flex-row-reverse">
-                                    <div className="bg-red-500 rounded-2xl py-0 px-2 w-12 max-w-[30%] text-center">
-                                        {stock["ID"]}
-                                    </div>
-                                    <div className="w-40 line-clamp-1">
-                                        {stock["Name"]}
+                                    {stock["Logo"] === "-" ? (
+                                        <div className="w-10 h-10"></div>
+                                    ) : (
+                                        <Image
+                                            src={stock["Logo"]}
+                                            height={40}
+                                            width={40}
+                                            alt={stock["ID"]}
+                                        />
+                                    )}
+                                    <div className="flex flex-col gap-0 text-right">
+                                        <div>{stock["ID"]}</div>
+                                        <div className="w-32 line-clamp-1">
+                                            {stock["Name"]}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2 flex-row-reverse">
-                                    <div>{stock["Price"].split(" ")[0]}</div>
-                                    <div>({stock["Change %"]})</div>
+                                <div className="flex items-start flex-col">
+                                    <div className="font-semibold">
+                                        ({stock["Change %"]})
+                                    </div>
+                                    <div>
+                                        {stock["Price"].split(" ")[0] + "¥"}
+                                    </div>
                                 </div>
                             </div>
                         ))}

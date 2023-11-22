@@ -141,7 +141,7 @@ const MacroOverview = () => {
         });
     }, []);
     return (
-        <div className="flex-1 h-[calc(100dvh-48px)] p-1 flex flex-col gap-4 overflow-hidden">
+        <div className="flex-1 h-[calc(100dvh-48px)] p-2 flex flex-col gap-4 overflow-hidden">
             <div className="border-l-4 border-primary pl-2 text-xl flex w-full items-center justify-between">
                 <Link href="/app/macro-data">
                     <div>Macroeconomics</div>

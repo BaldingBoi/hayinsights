@@ -83,7 +83,7 @@ const data = {
 
 const MarketOverview = () => {
     return (
-        <div className="flex-1 h-[calc(100dvh-48px)] col-span-2 flex flex-col gap-4 p-1">
+        <div className="flex-1 h-[calc(100dvh-48px)] col-span-2 flex flex-col gap-4 p-2">
             <div className="border-l-4 border-primary pl-2 text-xl flex w-full items-center justify-between">
                 <Link href="/app/stocks">
                     <div>Market Statistic Overview</div>
