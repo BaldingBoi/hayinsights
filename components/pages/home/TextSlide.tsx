@@ -9,7 +9,7 @@ const TextSlide = () => {
             <div className="w-full">
                 <div className="font-extrabold text-2xl [text-wrap:balance] bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200">
                     We provide the most complete, accurate and readable
-                    informations to
+                    information to
                 </div>
                 <div className="block font-extrabold text-2xl [text-wrap:balance] bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 h-[calc(theme(fontSize.2xl)*theme(lineHeight.tight))] overflow-hidden">
                     <span>

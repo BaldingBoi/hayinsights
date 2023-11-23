@@ -3,11 +3,14 @@ import MacroOverview from "./MacroOverview";
 import MarketOverview from "./MarketOverview";
 import IndexOverview from "./IndexOverview";
 import { Loader2 } from "lucide-react";
+import { getExchangeRate } from "@/actions/macro-data";
 
-const Dashboard = () => {
+const Dashboard = async () => {
+    const [exchangeRateData] = await Promise.all([getExchangeRate()]);
+
     return (
         <div className="w-full flex-1 h-[calc(100dvh-48px)] grid grid-cols-5 px-4">
-            <MacroOverview />
+            <MacroOverview exchangeRateData={exchangeRateData} />
             <MarketOverview />
 
             <Suspense

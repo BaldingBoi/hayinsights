@@ -73,7 +73,7 @@ const chartOptions = {
         },
     },
 };
-const MacroOverview = () => {
+const MacroOverview = ({ exchangeRateData }: any) => {
     const [labels, setLabels] = useState<string[]>([]);
     const [datas, setDatas] = useState<any>({});
     const { messages, setOpenChat, addMessage, setLoading } =
@@ -133,9 +133,7 @@ const MacroOverview = () => {
     useEffect(() => {
         setLabels(RateDataQuarterly["Time"].slice(-12));
         setDatas({
-            rate: [...RateDataQuarterly["Rate"].slice(-12)].map(
-                (rate) => 1 / rate
-            ),
+            rate: exchangeRateData.quarterly.rate,
             gdp: GDPJPY["GDP"].slice(-12),
             cpi: CPIDataQuarterly["CPI"].slice(-12),
             pp: PEIPDataQuarterly["PP"].slice(-12),

@@ -147,11 +147,11 @@ const Trends = ({ stockData }: any) => {
                                     className="text-red-500"
                                 />
                             )}
-                            <div className="text-3xl font-semibold flex items-center gap-2">
+                            <div className="text-2xl font-semibold flex items-center gap-2">
                                 <div>{formatNumber(chartData.at(-1), 2)}</div>
                                 <div
                                     className={cn(
-                                        "text-xl",
+                                        "text-lg",
                                         chartData.at(-1) > chartData.at(-2)
                                             ? "text-green-500"
                                             : "text-red-500"
@@ -170,7 +170,7 @@ const Trends = ({ stockData }: any) => {
                                 )}`}</div>
                                 <div
                                     className={cn(
-                                        "text-xl",
+                                        "text-lg",
                                         chartData.at(-1) > chartData.at(-2)
                                             ? "text-green-500"
                                             : "text-red-500"
@@ -254,7 +254,7 @@ const Trends = ({ stockData }: any) => {
                     />
                 )}
             </Card>
-            <Card className="w-full p-4 flex flex-col gap-4 h-[300px]">
+            <Card className="w-full p-4 flex flex-col gap-4 h-[250px]">
                 <div className="w-full flex items-center justify-between text-xl font-semibold">
                     <div className="flex items-center gap-2">
                         <TrendingUp size={32} className="text-green-500" />
