@@ -128,7 +128,7 @@ const Trends = ({ stockData }: any) => {
     return (
         <div className="w-full h-full flex flex-col gap-4">
             <Card className="w-full p-4 flex flex-col gap-1 justify-between max-h-1/2 h-fit">
-                {chartData && (
+                {chartData ? (
                     <Tabs
                         value={days}
                         //@ts-ignore
@@ -147,8 +147,8 @@ const Trends = ({ stockData }: any) => {
                                     className="text-red-500"
                                 />
                             )}
-                            <div className="text-3xl font-semibold flex items-center gap-1">
-                                {formatNumber(chartData.at(-1), 2)}{" "}
+                            <div className="text-3xl font-semibold flex items-center gap-2">
+                                <div>{formatNumber(chartData.at(-1), 2)}</div>
                                 <div
                                     className={cn(
                                         "text-xl",
@@ -156,7 +156,26 @@ const Trends = ({ stockData }: any) => {
                                             ? "text-green-500"
                                             : "text-red-500"
                                     )}
-                                >{`(${
+                                >{`${
+                                    chartData.at(-1) > chartData.at(-2)
+                                        ? "+"
+                                        : "-"
+                                }${formatNumber(
+                                    formatNumber(
+                                        Math.abs(
+                                            chartData.at(-1) - chartData.at(-2)
+                                        ),
+                                        2
+                                    )
+                                )}`}</div>
+                                <div
+                                    className={cn(
+                                        "text-xl",
+                                        chartData.at(-1) > chartData.at(-2)
+                                            ? "text-green-500"
+                                            : "text-red-500"
+                                    )}
+                                >{`${
                                     chartData.at(-1) > chartData.at(-2)
                                         ? "+"
                                         : "-"
@@ -166,7 +185,7 @@ const Trends = ({ stockData }: any) => {
                                             chartData.at(-2)
                                     ) * 100,
                                     2
-                                )}%)`}</div>
+                                )}%`}</div>
                             </div>
                             {isFetching && (
                                 <Loader2 size={24} className="animate-spin" />
@@ -179,6 +198,10 @@ const Trends = ({ stockData }: any) => {
                             <TabsTrigger value="1095">3Y</TabsTrigger>
                         </TabsList>
                     </Tabs>
+                ) : (
+                    <div className="w-full flex items-center">
+                        <Loader2 className="animate-spin" />
+                    </div>
                 )}
 
                 {chartData && (

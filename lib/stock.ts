@@ -15,3 +15,17 @@ export type StockData = {
     Sector: string;
     "Analyst Rating": string;
 };
+
+export type StockDataTransformed = {
+    _id: string;
+    ID: string;
+    Name: string;
+    Logo: string;
+    Price: number;
+    "Change %": number;
+    Volume: number;
+    "Market cap": number;
+    "P/E": number;
+    "Div yield %\nTTM": number;
+    Sector: string;
+};

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -88,7 +89,7 @@ const PEIP = () => {
                 messages: [
                     ...messages,
                     {
-                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and finanocial markets market: ${JSON.stringify(
+                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and financial markets market: ${JSON.stringify(
                             {
                                 label: "Japan Producer/Export/Import price",
                                 data: {

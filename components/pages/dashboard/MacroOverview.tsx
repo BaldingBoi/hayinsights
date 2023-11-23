@@ -87,7 +87,7 @@ const MacroOverview = () => {
                 messages: [
                     ...messages,
                     {
-                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and finanocial markets market: ${JSON.stringify(
+                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and finanecial markets market: ${JSON.stringify(
                             {
                                 time: labels,
                                 data: [
@@ -133,7 +133,9 @@ const MacroOverview = () => {
     useEffect(() => {
         setLabels(RateDataQuarterly["Time"].slice(-12));
         setDatas({
-            rate: RateDataQuarterly["Rate"].slice(-12).map((rate) => 1 / rate),
+            rate: [...RateDataQuarterly["Rate"].slice(-12)].map(
+                (rate) => 1 / rate
+            ),
             gdp: GDPJPY["GDP"].slice(-12),
             cpi: CPIDataQuarterly["CPI"].slice(-12),
             pp: PEIPDataQuarterly["PP"].slice(-12),

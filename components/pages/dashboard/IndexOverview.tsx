@@ -12,7 +12,7 @@ const Nikkei = async () => {
     return (
         <div className="flex-1 h-[calc(100dvh-48px)] col-span-2 flex flex-col gap-4 p-2 overflow-hidden">
             <div className="border-l-4 border-primary pl-2 text-xl flex w-full items-center justify-between">
-                <Link href="/app/stocks">
+                <Link href="/app/indexes">
                     <div>Nikkei 225</div>
                 </Link>
             </div>
@@ -22,7 +22,7 @@ const Nikkei = async () => {
             >
                 <TabsList>
                     <TabsTrigger value="trends">Trends</TabsTrigger>
-                    <TabsTrigger value="overview">Heat Map</TabsTrigger>
+                    <TabsTrigger value="overview"> Map</TabsTrigger>
                 </TabsList>
                 <TabsContent value="trends" className="flex-1 w-full h-full">
                     <Suspense
@@ -44,7 +44,7 @@ const Nikkei = async () => {
                 </TabsContent>
             </Tabs>
             <div className="w-full flex justify-center">
-                <Link href={"/app/indexs"}>
+                <Link href={"/app/indexes"}>
                     <Button
                         className="rounded-full bg-transparent text-primary border-2 border-primary flex items-center gap-1"
                         variant={"outline"}

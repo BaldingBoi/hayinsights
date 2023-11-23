@@ -1,5 +1,6 @@
 "use client";
 import {
+    SortingState,
     flexRender,
     getCoreRowModel,
     getPaginationRowModel,
@@ -15,20 +16,29 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import {
+    ChevronDown,
     ChevronLeft,
     ChevronRight,
+    ChevronUp,
     ChevronsLeft,
     ChevronsRight,
 } from "lucide-react";
 import { DataTableProps } from "./data-table";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export function DataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
+    const [sorting, setSorting] = useState<SortingState>([]);
     const table = useReactTable({
         data,
         columns,
+        state: {
+            sorting,
+        },
+        onSortingChange: setSorting,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     });
@@ -54,6 +64,51 @@ export function DataTable<TData, TValue>({
                             })}
                         </TableRow>
                     ))}
+                    {/* {table.getHeaderGroups().map((headerGroup) => (
+                        <TableRow key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <TableHead
+                                        key={header.id}
+                                        colSpan={header.colSpan}
+                                    >
+                                        {header.isPlaceholder ? null : (
+                                            <div
+                                                {...{
+                                                    className: cn(
+                                                        "flex items-center gap-1",
+                                                        header.column.getCanSort()
+                                                            ? "cursor-pointer select-none"
+                                                            : ""
+                                                    ),
+                                                    onClick:
+                                                        header.column.getToggleSortingHandler(),
+                                                }}
+                                            >
+                                                {flexRender(
+                                                    header.column.columnDef
+                                                        .header,
+                                                    header.getContext()
+                                                )}
+                                                {{
+                                                    asc: (
+                                                        <ChevronUp size={12} />
+                                                    ),
+                                                    desc: (
+                                                        <ChevronDown
+                                                            size={12}
+                                                        />
+                                                    ),
+                                                }[
+                                                    header.column.getIsSorted() as string
+                                                ] ?? null}
+                                            </div>
+                                        )}
+                                    </TableHead>
+                                );
+                            })}
+                        </TableRow>
+                    ))} */}
                 </TableHeader>
                 <TableBody className="">
                     {table.getRowModel().rows?.length ? (
@@ -136,7 +191,7 @@ export function DataTable<TData, TValue>({
                                 : 0;
                             table.setPageIndex(page);
                         }}
-                        className="border p-1 rounded w-16"
+                        className="border px-2 py-1 rounded-xl w-16"
                     />
                 </span>
             </div>

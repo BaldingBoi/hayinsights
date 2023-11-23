@@ -81,16 +81,6 @@ const chartOptions = {
     },
 };
 
-const data = {
-    labels: ["Prime", "Standard"],
-    datasets: {
-        "average-pe": [15.7, 13.6],
-        "weighted-average-pe": [17.0, 16.2],
-        "average-pb": [1.2, 0.8],
-        "weighted-average-pb": [1.3, 1.0],
-    },
-};
-
 const TVL = () => {
     const [labels, setLabels] = React.useState<any>();
     const [totalData, setTotalData] = React.useState<any>();
@@ -111,7 +101,7 @@ const TVL = () => {
                 messages: [
                     ...messages,
                     {
-                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and finanocial markets market: ${JSON.stringify(
+                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and financial markets market: ${JSON.stringify(
                             TVLData
                         )}`,
                         role: "user",
@@ -229,7 +219,7 @@ const TVL = () => {
                                                 0,
                                                 0,
                                                 0,
-                                                400
+                                                500
                                             );
                                         gradient.addColorStop(
                                             0,
@@ -286,7 +276,7 @@ const TVL = () => {
                                                 0,
                                                 0,
                                                 0,
-                                                400
+                                                500
                                             );
                                         gradient.addColorStop(
                                             0,

@@ -1,7 +1,7 @@
+"use client";
 import React, { use, useEffect, useState } from "react";
 import RateDataQuarterly from "@/data/rate-quarterly.json";
 import RateDataAnnual from "@/data/rate-annual.json";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
@@ -74,7 +74,7 @@ const chartOptions = {
     },
 };
 
-const ExchangeRate = () => {
+const ExchangeRate = ({ exchangeRateData }: any) => {
     const { messages, setOpenChat, addMessage, setLoading } =
         useChatStore() as ChatStore;
 
@@ -83,17 +83,15 @@ const ExchangeRate = () => {
 
     useEffect(() => {
         setLabels({
-            quarterly: RateDataQuarterly["Time"].slice(-12),
-            annual: RateDataAnnual["Time"].slice(-6),
+            quarterly: exchangeRateData.quarterly.time,
+            annual: exchangeRateData.annual.time,
         });
 
         setDatas({
-            quarterly: RateDataQuarterly["Rate"]
-                .slice(-12)
-                .map((item) => 1 / item),
-            annual: RateDataAnnual["Rate"].slice(-6).map((item) => 1 / item),
+            quarterly: exchangeRateData.quarterly.rate,
+            annual: exchangeRateData.annual.rate,
         });
-    }, []);
+    }, [exchangeRateData]);
 
     const analyzeWithAI = async () => {
         setOpenChat(true);
@@ -104,19 +102,10 @@ const ExchangeRate = () => {
                 messages: [
                     ...messages,
                     {
-                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and finanocial markets market: ${JSON.stringify(
+                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and financial markets market: ${JSON.stringify(
                             {
                                 label: "Exchange rates (JPY/USD)",
-                                data: {
-                                    annual: {
-                                        time: labels.annual,
-                                        rate: datas.annual,
-                                    },
-                                    quarterly: {
-                                        time: labels.quarterly,
-                                        rate: datas.quarterly,
-                                    },
-                                },
+                                data: exchangeRateData,
                             }
                         )}`,
                         role: "user",

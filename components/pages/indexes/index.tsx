@@ -3,9 +3,9 @@ import React, { Suspense } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Nikkei from "./Nikkei";
 
-const Indexs = () => {
+const Indexes = () => {
     return (
-        <div className="h-full w-full p-4 flex flex-col gap-16 overflow-auto">
+        <div className="h-full w-full p-4 flex flex-col gap-16 overflow-auto no-scrollbar">
             <Tabs
                 defaultValue="Nikkei225"
                 className="w-full h-full flex flex-col"
@@ -35,4 +35,4 @@ const Indexs = () => {
     );
 };
 
-export default Indexs;
+export default Indexes;

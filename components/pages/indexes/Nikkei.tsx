@@ -26,7 +26,7 @@ const Nikkei = async () => {
                     >
                         <TabsList>
                             <TabsTrigger value="trend">Trends</TabsTrigger>
-                            <TabsTrigger value="map">Heat map</TabsTrigger>
+                            <TabsTrigger value="map">Map</TabsTrigger>
                         </TabsList>
                         <TabsContent
                             value="trend"

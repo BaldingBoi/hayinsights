@@ -32,11 +32,11 @@ const Header = () => {
                     <div>Stock Market</div>
                 </Link>
                 <Link
-                    href="/app/indexs"
+                    href="/app/indexes"
                     className="flex items-center gap-1 text-primary"
                 >
                     <List />
-                    <div>Indexs</div>
+                    <div>Indices</div>
                 </Link>
 
                 {/* <Search /> */}

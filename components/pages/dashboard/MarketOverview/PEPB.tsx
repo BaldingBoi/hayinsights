@@ -69,7 +69,7 @@ const chartOptions = {
 };
 
 const data = {
-    labels: ["Prime", "Standard"],
+    labels: ["Prime Category", "Standard Category"],
     datasets: {
         "average-pe": [15.7, 13.6],
         "weighted-average-pe": [17.0, 16.2],
@@ -90,7 +90,7 @@ const PEPB = () => {
                 messages: [
                     ...messages,
                     {
-                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and finanocial markets market: ${JSON.stringify(
+                        content: `Analyze this data and give me a short summary of insights and predictions about Japan's economy and financial markets market: ${JSON.stringify(
                             data
                         )}`,
                         role: "user",
@@ -150,7 +150,7 @@ const PEPB = () => {
                                                 0,
                                                 0,
                                                 0,
-                                                400
+                                                500
                                             );
                                         gradient.addColorStop(
                                             0,
@@ -177,7 +177,7 @@ const PEPB = () => {
                                                 0,
                                                 0,
                                                 0,
-                                                400
+                                                500
                                             );
                                         gradient.addColorStop(
                                             0,
@@ -215,7 +215,7 @@ const PEPB = () => {
                                                 0,
                                                 0,
                                                 0,
-                                                400
+                                                500
                                             );
                                         gradient.addColorStop(
                                             0,
@@ -242,7 +242,7 @@ const PEPB = () => {
                                                 0,
                                                 0,
                                                 0,
-                                                400
+                                                500
                                             );
                                         gradient.addColorStop(
                                             0,

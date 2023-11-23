@@ -8,7 +8,7 @@ const TextSlide = () => {
         <div className="min-h-screen w-full bg-primary px-20 flex flex-col items-start justify-center gap-4">
             <div className="w-full">
                 <div className="font-extrabold text-2xl [text-wrap:balance] bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200">
-                    We provide the most complete, accurate and intuitive
+                    We provide the most complete, accurate and readable
                     informations to
                 </div>
                 <div className="block font-extrabold text-2xl [text-wrap:balance] bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 h-[calc(theme(fontSize.2xl)*theme(lineHeight.tight))] overflow-hidden">

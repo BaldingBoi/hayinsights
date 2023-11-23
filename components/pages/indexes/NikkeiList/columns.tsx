@@ -1,6 +1,6 @@
 "use client";
 
-import { StockData } from "@/lib/stock";
+import { StockData, StockDataTransformed } from "@/lib/stock";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Image from "next/image";
 
@@ -22,6 +22,7 @@ export const columns = [
                             height={40}
                             width={40}
                             alt={stock["ID"]}
+                            className="w-10 h-10"
                         />
                     )}
                     <div className="flex flex-col gap-0">
@@ -35,7 +36,7 @@ export const columns = [
     columnsHelper.accessor("Price", {
         header: () => "Price (Yen)",
 
-        cell: (info) => info.getValue().split(" ")[0],
+        cell: (info) => info.getValue(),
     }),
     columnsHelper.accessor("Change %", {
         cell: (info) => info.getValue(),

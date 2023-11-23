@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import MacroOverview from "./MacroOverview";
 import MarketOverview from "./MarketOverview";
 import IndexOverview from "./IndexOverview";
+import { Loader2 } from "lucide-react";
 
 const Dashboard = () => {
     return (
@@ -9,7 +10,13 @@ const Dashboard = () => {
             <MacroOverview />
             <MarketOverview />
 
-            <Suspense fallback={<></>}>
+            <Suspense
+                fallback={
+                    <div className="w-full h-full flex justify-center items-center">
+                        <Loader2 className="animate-spin" />
+                    </div>
+                }
+            >
                 <IndexOverview />
             </Suspense>
         </div>

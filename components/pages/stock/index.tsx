@@ -2,7 +2,7 @@ import { CandlestickChart } from "lucide-react";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Overview from "./Overview";
-import Nikkei from "../indexs/Nikkei";
+import Nikkei from "../indexes/Nikkei";
 
 const Stock = () => {
     return (
