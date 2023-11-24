@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: develop-frypto-dca
+  name: develop-jps
   namespace: develop
   labels:
-    app: develop-frypto-dca
+    app: develop-jps
 spec:
   selector:
     matchLabels:
-      app: develop-frypto-dca
+      app: develop-jps
   replicas: 1
   strategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        app: develop-frypto-dca
+        app: develop-jps
     spec:
       containers:
-      - name: develop-frypto-dca
-        image: dockerhub.finhay.lan/develop-frypto-dca:0.0
+      - name: develop-jps
+        image: dockerhub.finhay.lan/develop-jps:0.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         # envFrom:
         # - secretRef:
-        #     name: develop-frypto-dca
+        #     name: develop-jps
 #         env:
 #            - name: ENV_PRODUCT_RUN_ON
 #              value: "develop"
@@ -52,11 +52,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: develop-frypto-dca
+  name: develop-jps
   namespace: develop
 spec:
   selector:
-    app: develop-frypto-dca
+    app: develop-jps
   ports:
     - protocol: TCP
       port: 3000
@@ -67,14 +67,14 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name:  develop-frypto-dca
+  name:  develop-jps
   namespace: develop
 spec:
   rules:
-  - host: "xxx.frypto.io"
+  - host: "macro-info.finhay.com.vn"
     http:
       paths:
         - path:
           backend:
-            serviceName: develop-frypto-dca
+            serviceName: develop-jps
             servicePort: 3000

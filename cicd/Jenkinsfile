@@ -1,41 +1,47 @@
 pipeline {
     agent any
+
+    parameters {
+        choice(
+        name: 'WORKSPACE',
+        choices: ['develop'],
+        description: ''
+        )
+    }
     environment {
         BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
     }
     stages {
-        // stage('load env') {
-        //     steps {
-        //         script {
-        //             try {
-        //                 if (params.WORKSPACE=="develop") {
-        //                     sh '''
-        //                         sudo cp ./env/${WORKSPACE}.${IMAGES}.env ./.env
-        //                         ls -lah
-        //                     '''
-        //                 }
-        //                 if (params.WORKSPACE=="products") {
-        //                     sh '''
-
-        //                         cp /var/lib/jenkins/workspace/update-env-for-service-vnsc/vnsc-accounts/ext_phones.json ./src/ext_phones.json                         
-        //                     '''
-        //                     echo "do nothing!"
-                            
-        //                 }
-        //             }
-        //             catch (err) {
-        //                 currentBuild.result = "FAILED"
-        //                 throw err
-        //             }
-        //         }
-        //     }
-	    // }
-        stage('Build and upload image') {
+        stage('Setup') {
+            steps {
+                script {
+                    if (params.WORKSPACE=="develop"){
+                        
+                        env.K8SCLS = 'develop'
+                        env.DOCKERFILE = 'Dockerfile'
+                        env.DEPLOYMENT = 'develop-jps'
+                        env.IMAGES = 'develop-jps'
+                        env.URL_PRIVATE_REGISTRY = 'dockerhub.finhay.lan'
+                        echo "pipline $WORKSPACE , $DOCKERFILE , $DEPLOYMENT , $IMAGES ,$URL_PRIVATE_REGISTRY "
+                    } else {
+                        echo 'pipline not defined'
+                        currentBuild.result = "FAILED"
+                        throw err
+                    }
+                }
+            }
+        }
+        stage('load env') {
             steps {
                 script {
                     try {
-                        sh 'bash ./cicd/build_image.sh $WORKSPACE ${WORKSPACE}-${IMAGES}  $BUILD_NUMBER ${URL_PRIVATE_REGISTRY}'
-                        sh 'sudo docker images "${URL_PRIVATE_REGISTRY}/${WORKSPACE}-${IMAGES}" --digests'
+                        if (params.WORKSPACE=="develop") {
+                            sh '''
+                                sudo cp ./env/${WORKSPACE}.env ./.env
+                                ls -lah
+                            '''
+                        }
+
                     }
                     catch (err) {
                         currentBuild.result = "FAILED"
@@ -44,13 +50,27 @@ pipeline {
                 }
             }
 	    }
-
-        stage('Promote to K8s') {
+        stage('Build and upload image') {
             steps {
                 script {
                     try {
-                        sh 'bash ./cicd/update_image_to_service_on_k8s.sh $WORKSPACE ${WORKSPACE}-${IMAGES}  $BUILD_NUMBER ${URL_PRIVATE_REGISTRY}'
-                        sh 'git checkout .'
+                        echo "$WORKSPACE , $DOCKERFILE , $DEPLOYMENT , $IMAGES ,$URL_PRIVATE_REGISTRY"
+                        sh 'bash ./cicd/build_image.sh $WORKSPACE $DOCKERFILE ${IMAGES} $BUILD_NUMBER ${URL_PRIVATE_REGISTRY}'
+                        sh 'sudo docker images "${URL_PRIVATE_REGISTRY}/${IMAGES}" --digests'
+                    }
+                    catch (err) {
+                        currentBuild.result = "FAILED"
+                        throw err
+                    }
+                }
+            }
+	    }
+        stage('Promote to K8S') {
+            steps {
+                script {
+                    try {
+                        echo "$WORKSPACE , $DOCKERFILE , $DEPLOYMENT , $IMAGES ,$URL_PRIVATE_REGISTRY"
+                        sh 'bash ./cicd/update_image_to_service_on_k8s.sh ${K8SCLS} $WORKSPACE $DEPLOYMENT ${IMAGES} $BUILD_NUMBER ${URL_PRIVATE_REGISTRY}'
                     }
                     catch (err) {
                         currentBuild.result = "FAILED"
@@ -67,9 +87,9 @@ pipeline {
 
                 echo "GIT_COMMIT_MSG: ${GIT_COMMIT_MSG}"
                 if (currentBuild.result == 'SUCCESS') {
-                    sh "bash ./cicd/send-noti-to-ggchat.sh '<users/all> *${params.WORKSPACE}* buid *${WORKSPACE}-${IMAGES}:$BUILD_NUMBER* *SUCCESSFULL* 👍. '"
+                    sh "bash ./cicd/send-noti-to-ggchat.sh '<users/all> *${params.WORKSPACE}* buid *${IMAGES}:$BUILD_NUMBER* *SUCCESSFULL* 👍. '"
                 } else {
-                    sh "bash ./cicd/send-noti-to-ggchat.sh '<users/all> *${params.WORKSPACE}* buid *${WORKSPACE}-${IMAGES}:$BUILD_NUMBER* *FAILD* 👎. '"   
+                    sh "bash ./cicd/send-noti-to-ggchat.sh '<users/all> *${params.WORKSPACE}* buid *${IMAGES}:$BUILD_NUMBER* *FAILD* 👎. '"   
                 }
             }
         }
